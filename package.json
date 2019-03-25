@@ -1,0 +1,30 @@
+{
+  "name": "queeg",
+  "version": "0.1.0",
+  "description": "Make from your the best usable websites desktop application customized just for you.",
+  "main": "lib/main.js",
+  "scripts": {
+    "compile": "tsc",
+    "electron": "electron .",
+    "start": "npm run compile && npm run electron",
+    "prepublish": "npm run compile"
+  },
+  "license": "MIT",
+  "keywords": [
+    "easy&lite",
+    "website",
+    "desktop application"
+  ],
+  "author": "Filip Paulů <ing.fenix@seznam.cz>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ingSlonik/queeg.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ingSlonik/queeg/issues"
+  },
+  "devDependencies": {
+    "electron": "^4.0.7",
+    "typescript": "^3.3.4000"
+  }
+}
