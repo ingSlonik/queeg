@@ -26,6 +26,9 @@ function createWindow(application: Application, index: number) {
         darkTheme: true,
         autoHideMenuBar: true,
         icon: resolve(__dirname, "..", "img", application.icon),
+        webPreferences: {
+            plugins: true,
+        },
     });
 
     // and load the index.html of the app.
@@ -46,7 +49,7 @@ function createWindow(application: Application, index: number) {
 }
 
 
-app.setName("Filovo udelatko");
+app.setName("Queeg");
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -67,4 +70,3 @@ app.on("activate", () => {
     // dock icon is clicked and there are no other windows open.
     openAllWindows();
 });
-
