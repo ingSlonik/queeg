@@ -6,7 +6,7 @@ type Icon = string;
 // can separate context of WebViews, define by https://electronjs.org/docs/api/webview-tag#partition
 type Partition = string;
 
-export type Alert = (webview: WebviewTag, cb: (alert: null | string) => void) => void;
+export type Alert = (item: WebView, webview: WebviewTag, cb: (alert: null | string) => void) => void;
 
 type WebView = {
     name: string,
