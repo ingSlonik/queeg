@@ -1,0 +1,146 @@
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+}
+
+#nav {
+    display: flex;
+    width: 64px;
+    flex-direction: column;
+    align-items: stretch;
+    border-right: 1px solid #AAA;
+}
+
+#nav hr {
+    width: 80%;
+}
+
+#nav .button {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 54px;
+    padding: 4px;
+    cursor: pointer;
+    border-left: 3px solid #888;
+    transition: 0.5s;
+}
+
+#nav .button.active {
+    padding-left: 3px;
+    border-left: 6px solid #888;
+}
+
+#nav .button .background {
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #888;
+    opacity: 0.1;
+}
+
+#nav .button.active .background {
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #888;
+    opacity: 0.3;
+}
+
+#nav .button img {
+    position: relative;
+    z-index: 2;
+    max-width: 100%;
+    max-height: 100%;
+    transform: scale(0.7);
+    transition: 0.5s;
+    opacity: 0.7;
+}
+
+#nav .button.active img {
+    transform: scale(1);
+    opacity: 1;
+}
+
+#nav .button img:hover {
+    transform: scale(1);
+}
+
+#nav .button .number {
+    display: none;
+    position: absolute;
+    z-index: 4;
+    top: 4px;
+    right: 4px;
+    color: #333;
+    font-size: 12px;
+    padding: 2px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #F00;
+    min-width: 16px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+}
+
+#nav .button .partition {
+    position: absolute;
+    z-index: 3;
+    bottom: 8px;
+    right: 4px;
+    color: #888;
+    font-size: 10px;
+}
+
+#nav .button .label {
+    display: none;
+    position: absolute;
+    z-index: 5;
+    top: 50%;
+    right: 0px;
+}
+#nav .button:hover .label {
+    display: block;
+}
+
+#nav .button .label .text {
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    background-color: white;
+    border: 2px solid #888;
+    padding: 8px 16px;
+    transform: translate(-0%, -50%);
+    white-space: nowrap;
+}
+
+#nav .button .label .text .name {
+    font-weight: bold;
+}
+
+#nav .button .label .arrow {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    height: 0px;
+    border: 8px solid transparent;
+    border-right-color: #888;
+}
+
+webview {
+    display: flex;
+    flex-grow: 1;
+}
