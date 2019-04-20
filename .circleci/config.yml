@@ -23,6 +23,9 @@ jobs:
       - run:
           name: create-zip
           command: zip -r artifacts/queeg-linux-x64.zip dist/app-linux-x64
+      - persist_to_workspace:
+          root: ./artifacts
+          paths: *
 
   publish-github-release:
     docker:
@@ -43,5 +46,5 @@ workflows:
     jobs:
       - build
       - publish-github-release:
-        requires:
+          requires:
             - build
