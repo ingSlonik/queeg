@@ -11,12 +11,18 @@ jobs:
       - run:
           name: compile
           command: npm run compile
+      #- run:
+      #    name: build-for-win
+      #    command: npm run build:win
+      #- run:
+      #    name: create-zip
+      #    command: zip -r artifacts/queeg-win32-x64.zip dist/app-win32-x64
       - run:
-          name: build-for-win
-          command: npm run build:win
+          name: build-for-linux
+          command: npm run build:linux
       - run:
           name: create-zip
-          command: zip -r artifacts/queeg-win32-x64.zip dist/app-win32-x64
+          command: zip -r artifacts/queeg-linux-x64.zip dist/app-linux-x64
       - run:
           name: release
           command: ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./artifacts/ 
