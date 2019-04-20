@@ -2,12 +2,14 @@
   "name": "queeg",
   "version": "0.2.0",
   "description": "Make from your the best usable websites desktop application customized just for you.",
-  "main": "lib/main.js",
+  "main": "lib/index.js",
   "scripts": {
     "compile": "tsc",
     "electron": "electron .",
     "start": "npm run compile && npm run electron",
-    "prepublish": "npm run compile"
+    "build:win": "electron-packager . app --platform win32 --arch x64 --out dist/",
+    "build:linux": "electron-packager . app --platform linux --arch x64 --out dist/",
+    "build:mac": "electron-packager . app --platform darwin --arch x64 --out dist/"
   },
   "license": "MIT",
   "keywords": [
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "electron": "^4.0.7",
+    "electron-packager": "^13.1.1",
     "typescript": "^3.3.4000"
   }
 }
