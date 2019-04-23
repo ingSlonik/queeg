@@ -1,6 +1,8 @@
-import { shell } from "electron";
+import { shell, WebviewTag } from "electron";
 
 import configuration from "./configuration";
+
+import keyEvents from "./keyEvents";
 
 function getElement(tag: string, properties: { [key: string]: any }, children?: Array<HTMLElement>): HTMLElement {
     const element = document.createElement(tag);
@@ -19,8 +21,7 @@ export default function renderer(applicationIndex: number) {
 
     document.title = application.title;
 
-    const buttons = [];
-    const webviews = [];
+    const all: Array<{ name: string, button: HTMLElement, webview: WebviewTag, lastDate: Date }> = [];
 
     application.items.forEach((item, i) => {
         const { name, icon, url, partition, alert, color } = item;
@@ -31,7 +32,7 @@ export default function renderer(applicationIndex: number) {
         const partitionElement = getElement("div", { className: "partition", innerText: partition.replace("persist:", "").charAt(0).toLocaleUpperCase() });
         const img = getElement("img", { alt: name, src: `../img/${icon}` });
         const titleElement = getElement("div", { className: "title" });
-        const label = getElement("div", { className: "label" }, [ 
+        const label = getElement("div", { className: "label" }, [
             getElement("div", { className: "text" }, [
                 getElement("div", { className: "name", innerText: name }),
                 titleElement,
@@ -44,9 +45,15 @@ export default function renderer(applicationIndex: number) {
             {
                 className: i === 0 ? "button active" : "button",
                 onclick: () => {
-                    buttons.forEach(b => b.className = "button");
+                    all.forEach(a => {
+                        a.button.className = "button";
+                        a.webview.style.display = "none";
+                        if (a.webview === webview) {
+                            a.lastDate = new Date();
+                        }
+                    });
+
                     button.className = "button active";
-                    webviews.forEach(w => w.style.display = "none");
                     webview.style.display = "flex";
                 }
             },
@@ -65,7 +72,7 @@ export default function renderer(applicationIndex: number) {
         }
 
         nav.appendChild(button);
-        buttons.push(button);
+        // buttons.push(button);
 
         // webview
         const webview = document.createElement("webview");
@@ -91,6 +98,48 @@ export default function renderer(applicationIndex: number) {
         }
 
         body.appendChild(webview);
-        webviews.push(webview);
+        // webviews.push(webview);
+
+        all.push({
+            name,
+            button,
+            webview,
+            lastDate: new Date(),
+        })
+    });
+
+    const { keyDown, keyUp } = keyEvents(all.map(a => a.webview));
+    const switchElement = document.getElementById("switch");
+    let pressControl = false;
+    let switchTabState: "none" | "switching" = "none";
+    let switchAbout = 0;
+
+    keyDown(key => {
+        if (key === "Control") {
+            pressControl = true;
+        }
+        if (pressControl && key === "Tab") {
+            switchTabState = "switching";
+            switchAbout = (switchAbout + 1) % all.length;
+            switchElement.style.display = "flex";
+
+            const sortAll = all.sort((a ,b) => b.lastDate.getTime() - a.lastDate.getTime());
+            switchElement.innerText = sortAll[switchAbout].name;
+        }
+    });
+
+    keyUp(key => {
+        if (key === "Control") {
+            pressControl = false;
+            if (switchTabState === "switching") {
+                
+                const sortAll = all.sort((a ,b) => b.lastDate.getTime() - a.lastDate.getTime());
+                sortAll[switchAbout].button.click();
+                
+                switchTabState = "none";
+                switchAbout = 0;
+                switchElement.style.display = "none";
+            }
+        }
     });
 }
