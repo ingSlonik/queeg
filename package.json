@@ -1,6 +1,6 @@
 {
   "name": "queeg",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Make from your the best usable websites desktop application customized just for you.",
   "main": "lib/main.js",
   "scripts": {
