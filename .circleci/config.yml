@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:11.9.0
+      - image: cettoana/node-wine
     steps:
       - checkout
       - run:
@@ -11,18 +11,18 @@ jobs:
       - run:
           name: compile
           command: npm run compile
-      #- run:
-      #    name: build-for-win
-      #    command: npm run build:win
-      #- run:
-      #    name: create-zip
-      #    command: zip -r artifacts/queeg-win32-x64.zip dist/app-win32-x64
       - run:
           name: build-for-linux
           command: npm run build:linux
       - run:
           name: create-zip
           command: zip -r artifacts/queeg-linux-x64.zip dist/app-linux-x64
+      - run:
+          name: build-for-win
+          command: npm run build:win
+      - run:
+          name: create-zip
+          command: zip -r artifacts/queeg-win32-x64.zip dist/app-win32-x64
       - persist_to_workspace:
           root: ./
           paths: artifacts/*
@@ -38,10 +38,6 @@ jobs:
           command: |
             go get github.com/tcnksm/ghr
             VERSION=v0.2.0
-            echo "-t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} artifacts/"
-            cd artifacts
-            ls
-            cd ..
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} artifacts/
 
 workflows:
