@@ -18,21 +18,28 @@ jobs:
           name: create-zip
           command: zip -r artifacts/queeg-linux-x64.zip dist/app-linux-x64
       - run:
+          name: build-for-mac
+          command: npm run build:mac
+      - run:
+          name: create-zip
+          command: zip -r artifacts/queeg-darwin-x64.zip dist/app-darwin-x64
+      - run:
           name: build-for-win
           command: npm run build:win
       - run:
           name: create-zip
           command: zip -r artifacts/queeg-win32-x64.zip dist/app-win32-x64
       - persist_to_workspace:
-          root: ./
-          paths: artifacts/*
+          root: ~/
+          paths: 
+            - artifacts
 
   publish-github-release:
     docker:
       - image: circleci/golang:1.8
     steps:
       - attach_workspace:
-          at: ./artifacts
+          at: ~/artifacts
       - run:
           name: "Publish Release on GitHub"
           command: |
