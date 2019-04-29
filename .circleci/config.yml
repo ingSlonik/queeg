@@ -15,20 +15,32 @@ jobs:
           name: build-for-linux
           command: npm run build:linux
       - run:
-          name: create-zip
-          command: zip -r artifacts/queeg-linux-x64.zip dist/app-linux-x64
-      - run:
           name: build-for-mac
           command: npm run build:mac
-      - run:
-          name: create-zip
-          command: zip -r artifacts/queeg-darwin-x64.zip dist/app-darwin-x64
       - run:
           name: build-for-win
           command: npm run build:win
       - run:
-          name: create-zip
-          command: zip -r artifacts/queeg-win32-x64.zip dist/app-win32-x64
+          name: create-folder-artifacts
+          command: mkdir artifacts
+      - run:
+          name: create-zip-linux
+          command: |
+            cd dist/app-linux-x64/
+            zip -r ../../artifacts/queeg-linux-x64.zip .
+            cd ../..
+      - run:
+          name: create-zip-win
+          command: |
+            cd dist/app-win32-x64/
+            zip -r ../../artifacts/queeg-win32-x64.zip .
+            cd ../..
+      - run:
+          name: create-zip-mac
+          command: |
+            cd dist/app-darwin-x64/
+            zip -r ../../artifacts/queeg-mac-x64.zip .
+            cd ../..
       - persist_to_workspace:
           root: artifacts
           paths: .
