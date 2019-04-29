@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: cettoana/node-wine
+      - image: supamiu/circleci-node-wine
     steps:
       - checkout
       - run:
