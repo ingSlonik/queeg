@@ -3,9 +3,6 @@ jobs:
   build:
     docker:
       - image: supamiu/circleci-node-wine
-    branches:
-      only:
-        - master
     steps:
       - checkout
       - run:
@@ -51,9 +48,6 @@ jobs:
   publish-github-release:
     docker:
       - image: circleci/golang:1.8
-    branches:
-      only:
-        - master
     steps:
       - attach_workspace:
           at: artifacts
@@ -68,7 +62,13 @@ workflows:
   version: 2
   build-publish:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              only: master
       - publish-github-release:
           requires:
             - build
+          filters:
+            branches:
+              only: master
