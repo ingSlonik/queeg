@@ -5,7 +5,7 @@ import { alertFromNumber, togglStatus, alertChat, alertTestTitle } from "./alert
 const windows: Array<Application> = [
     {
         title: "Queeg",
-        icon: "icon.png",
+        icon: "icon.ico",
         items: [
             { name: "Gmail work", icon: "gmail.png", color: "#8aca3a", url: "https://mail.google.com/mail/u/0/#inbox", partition: "persist:work", alert: alertFromNumber },
             { name: "Calendar work", icon: "calendar.png", color: "#8aca3a", url: "https://calendar.google.com/calendar/b/0/", partition: "persist:work", alert: alertTestTitle },

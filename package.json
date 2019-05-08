@@ -7,7 +7,7 @@
     "compile": "tsc",
     "electron": "electron .",
     "start": "npm run compile && npm run electron",
-    "build:win": "electron-packager . app --platform win32 --arch x64 --out dist/",
+    "build:win": "electron-packager . app --platform win32 --arch x64 --out dist/ --icon=img/icon.ico",
     "build:linux": "electron-packager . app --platform linux --arch x64 --out dist/",
     "build:mac": "electron-packager . app --platform darwin --arch x64 --out dist/"
   },
