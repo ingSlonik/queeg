@@ -89,7 +89,7 @@ body {
     opacity: 1;
 }
 
-#nav .button img:hover {
+#nav .button:hover img {
     transform: scale(1);
 }
 
@@ -99,7 +99,7 @@ body {
     z-index: 4;
     top: 4px;
     right: 4px;
-    color: #333;
+    color: black;
     font-size: 12px;
     padding: 2px;
     font-weight: bold;
@@ -113,10 +113,12 @@ body {
 #nav .button .partition {
     position: absolute;
     z-index: 3;
-    bottom: 8px;
+    bottom: 4px;
     right: 4px;
-    color: #888;
-    font-size: 10px;
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+    text-shadow: 1px 1px 1px white;
 }
 
 #nav .button .label {

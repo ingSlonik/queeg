@@ -13,6 +13,7 @@ type WebView = {
     icon: Icon,
     url: string,
     partition: Partition,
+    shortText?: string,
     alert?: Alert,
     color?: string,
 };

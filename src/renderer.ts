@@ -24,12 +24,12 @@ export default function renderer(applicationIndex: number) {
     const all: Array<{ name: string, button: HTMLElement, webview: WebviewTag, lastDate: Date }> = [];
 
     application.items.forEach((item, i) => {
-        const { name, icon, url, partition, alert, color } = item;
+        const { name, icon, url, partition, alert, color, shortText } = item;
 
         // button
         const background = getElement("div", { className: "background" }, []);
         const number = getElement("div", { className: "number" }, []);
-        const partitionElement = getElement("div", { className: "partition", innerText: partition.replace("persist:", "").charAt(0).toLocaleUpperCase() });
+        const partitionElement = getElement("div", { className: "partition", innerText: shortText || partition.replace("persist:", "").charAt(0).toLocaleUpperCase() });
         const img = getElement("img", { alt: name, src: `../img/${icon}` });
         const titleElement = getElement("div", { className: "title" });
         const label = getElement("div", { className: "label" }, [
