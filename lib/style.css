@@ -156,6 +156,23 @@ body {
     border-right-color: #888;
 }
 
+#contextmenu {
+    display: none;
+    position: fixed;
+    z-index: 10;
+    background: white;
+    border: #888;
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.6);
+}
+#contextmenu div {
+    padding: 4px 8px;
+    text-align: center;
+    cursor: pointer;
+}
+#contextmenu div:hover {
+    background-color: #EEE;
+}
+
 webview {
     display: flex;
     flex-grow: 1;

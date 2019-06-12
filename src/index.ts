@@ -35,7 +35,7 @@ function createWindow(application: Application, index: number) {
     window.loadFile(resolve(__dirname, "index.html" ), { search: `index=${index}` });
 
     // Open the DevTools.
-    // window.webContents.openDevTools()
+    window.webContents.openDevTools()
 
     // Emitted when the window is closed.
     window.on("closed", () => {

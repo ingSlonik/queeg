@@ -13,16 +13,40 @@ function getElement(tag: string, properties: { [key: string]: any }, children?: 
     return element;
 }
 
+function showContextMenu(element: HTMLElement, left: number, top: number) {
+    element.style.display = "block";
+    element.style.top = `${top}px`;
+    element.style.left = `${left + 16}px`;
+}
+
+
 export default function renderer(applicationIndex: number) {
     const application = configuration[applicationIndex];
 
     const body = document.body;
     const nav = document.getElementById("nav");
 
+    // Title
     document.title = application.title;
 
-    const all: Array<{ name: string, button: HTMLElement, webview: WebviewTag, lastDate: Date }> = [];
+    const all: Array<{ name: string, button: HTMLElement, contextmenu: HTMLElement, webview: WebviewTag, lastDate: Date }> = [];
 
+    // ContextMenu
+    const contextmenuElement = getElement("div", { id: "contextmenu" }, []);
+    body.appendChild(contextmenuElement);
+    window.oncontextmenu = e => {
+        console.log(e);
+        const element = (e.target as Element);
+        const item = all.reduce((selectedItem, item) => item.button.contains(element) ? item : selectedItem, null);
+        if (item) {
+            contextmenuElement.innerHTML = "";
+            contextmenuElement.appendChild(item.contextmenu);
+            showContextMenu(contextmenuElement, e.clientX, e.clientY)
+        }
+        return false;
+    }
+
+    // Render buttons    
     application.items.forEach((item, i) => {
         const { name, icon, url, partition, alert, color, shortText } = item;
 
@@ -97,6 +121,13 @@ export default function renderer(applicationIndex: number) {
             });
         }
 
+        const contextmenu = getElement("div", { 
+            innerText: "Refresh page", 
+            onclick: () => {
+                webview.reload();
+            }, 
+        });
+
         body.appendChild(webview);
         // webviews.push(webview);
 
@@ -104,6 +135,7 @@ export default function renderer(applicationIndex: number) {
             name,
             button,
             webview,
+            contextmenu,
             lastDate: new Date(),
         })
     });
