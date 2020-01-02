@@ -1,5 +1,6 @@
 import { shell, WebviewTag } from "electron";
 
+/*
 import configuration from "./configuration";
 
 import keyEvents from "./keyEvents";
@@ -175,3 +176,4 @@ export default function renderer(applicationIndex: number) {
         }
     });
 }
+*/

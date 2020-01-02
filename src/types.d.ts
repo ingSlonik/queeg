@@ -6,21 +6,42 @@ type Icon = string;
 // can separate context of WebViews, define by https://electronjs.org/docs/api/webview-tag#partition
 type Partition = string;
 
-export type Alert = (item: WebView, webview: WebviewTag, cb: (alert: null | string) => void) => void;
+export type WebviewFunction = (webview: WebviewTag) => {
+    mount: () => void,
+    unmount: () => void,
+};
 
-type WebView = {
+export type Alert = {
+    name: string,
+    fn: (item: Item, cb: (alert: null | string) => void) => WebviewFunction,
+};
+
+export type Item = {
+    static: StaticItemProps,
+    dynamic: DynamicItemProps,
+};
+
+export type StaticItemProps = {
+    id: number,
+    order: number,
     name: string,
     icon: Icon,
     url: string,
     partition: Partition,
-    shortText?: string,
-    alert?: Alert,
-    color?: string,
+    color: "primary" | "secondary",
+    shortText: string,
+    alert: null | string,
+};
+
+export type DynamicItemProps = {
+    title: string,
+    alert: string,
+    reload: boolean,
 };
 
 export type Application = {
     title: string,
     icon: Icon,
-    items: Array<WebView>,
+    activeItemIndex: number,
+    items: Array<Item>,
 };
-

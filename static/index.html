@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Loading...</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="main"></div>
+    <script>
+        const url = new URL(window.location);
+        const applicationIndex = url.searchParams.get("index");
+
+        const body = document.getElementById("main");
+
+        const renderer = require('../lib/window.js').default;
+        renderer(applicationIndex, body);
+    </script>
+</body>
+
+</html>

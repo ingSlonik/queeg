@@ -1,5 +1,6 @@
 artifacts
 dist
+easy-db
 node_modules
 scripts
 package-lock.json

@@ -4,7 +4,17 @@ import { Application } from "./types";
 import { app, BrowserWindow } from "electron";
 import { resolve } from "path";
 
-import configuration from "./configuration";
+// import { getWindowsConfiguration } from "./services/db";
+
+// const configuration = await getWindowsConfiguration();
+const configuration = [
+    {
+        title: "Queeg",
+        icon: "icon.ico",
+        activeItemIndex: 0,
+        items: []
+    }
+];
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -21,21 +31,22 @@ function openAllWindows() {
 function createWindow(application: Application, index: number) {
     // Create the browser window.
     const window = new BrowserWindow({
-        width: 1024,
+        width: 1200,
         height: 728,
-        darkTheme: true,
-        autoHideMenuBar: true,
+        // darkTheme: true,
+        // autoHideMenuBar: true,
         icon: resolve(__dirname, "..", "img", application.icon),
         webPreferences: {
-            plugins: true,
-        },
+            nodeIntegration: true,
+            webviewTag: true,
+        }
     });
 
     // and load the index.html of the app.
-    window.loadFile(resolve(__dirname, "index.html" ), { search: `index=${index}` });
+    window.loadFile(resolve(__dirname, "..", "static", "index.html" ), { search: `index=${index}` });
 
     // Open the DevTools.
-    window.webContents.openDevTools()
+    // window.webContents.openDevTools()
 
     // Emitted when the window is closed.
     window.on("closed", () => {
@@ -47,9 +58,6 @@ function createWindow(application: Application, index: number) {
 
     windows[index] = window;
 }
-
-
-app.setName("Queeg");
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
