@@ -45,7 +45,16 @@ export function Provider({ children, index }) {
         ...defaultContext,
         items,
         activeItemIndex,
-        setActiveItemIndex,
+        setActiveItemIndex: activeItemIndex => {
+            setActiveItemIndex(activeItemIndex);
+            setItems(items => items.map((item, i) => {
+                if (activeItemIndex === i) {
+                    return { ...item, dynamic: { ...item.dynamic, lastDate: new Date() } };
+                } else {
+                    return item;
+                }
+            }));
+        },
         addItem: async item => {
             await setItem(item);
             setItems(await getItemsForContext());
@@ -61,7 +70,7 @@ export function Provider({ children, index }) {
                 } else {
                     return item;
                 }
-            }))
+            }));
         },
     }}>
         {children}
@@ -78,6 +87,7 @@ async function getItemsForContext(): Promise<Item[]> {
                 title: staticProp.name,
                 alert: null,
                 reload: false,
+                lastDate: new Date(),
             }
         };
     });

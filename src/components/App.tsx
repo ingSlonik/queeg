@@ -4,6 +4,7 @@ import useContext, { Provider } from "./Context";
 
 import Nav from "./Nav";
 import Content from "./Content";
+import Switch from "./Switch";
 
 type AppProps = {
     index: number,
@@ -19,7 +20,7 @@ export default function App({ index }: AppProps) {
 
     return <Provider index={index}>
         <div id="wrap" className={nav.position}>
-            <div id="switch"></div>
+            <Switch />
             <Nav isSetting={false} />
             <Content />
         </div>

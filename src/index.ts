@@ -46,14 +46,14 @@ function createWindow(application: Application, index: number) {
     window.loadFile(resolve(__dirname, "..", "static", "index.html" ), { search: `index=${index}` });
 
     // Open the DevTools.
-    // window.webContents.openDevTools()
+    window.webContents.openDevTools();
 
     // Emitted when the window is closed.
     window.on("closed", () => {
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
-        windows[index] = null
+        windows[index] = null;
     })
 
     windows[index] = window;

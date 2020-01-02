@@ -37,6 +37,7 @@ export type DynamicItemProps = {
     title: string,
     alert: string,
     reload: boolean,
+    lastDate: Date,
 };
 
 export type Application = {
