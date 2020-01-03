@@ -49,12 +49,12 @@ body, #main {
     height: 100%;
     top: 0px;
     left: 0px;
-    transition: 0.5s;
+    transition: 0.5s linear;
 }
-.context.left {
+.context.before {
     top: 100%;
 }
-.context.right {
+.context.after {
     top: -100%;
 }
 
