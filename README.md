@@ -3,7 +3,7 @@
 Make from your the best usable websites desktop application customized just for you.
 
 Are you bored that you have everything in one browser?
-Do you want have separate context in some 
+Do you want have separate context?
 
 ![Gueeg](img/screen.png)
 
@@ -20,6 +20,14 @@ Do you want have separate context in some
   * When Toggle is not running and you use your Gmail.
 
 ## Install and run
+
+### For users
+
+1. Download app from [GitHub releases](https://github.com/ingSlonik/queeg/releases).
+2. Unzip downloaded file to folder.
+3. Open folder and run file `app` (for windows users `app.exe`).
+
+### For developers (cool people)
 
 To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
@@ -65,28 +73,3 @@ Otherwise it will be display where is the mistake with run this application.
   * Function for get number of alert displaed in red circle on icon.
   * You can add your own function to `src/alerts.ts`.
   * ![Alert](img/alert.png)
-
-### Example
-
-```js
-import { Application } from "./types";
-
-import { alertFromNumber } from "./alerts";
-
-const windows: Array<Application> = [
-    {
-        title: "Queeg",
-        icon: "icon.png",
-        items: [
-            { 
-                name: "gmail_work", 
-                icon: "gmail.png", 
-                color: "#8aca3a", 
-                url: "https://mail.google.com/mail/u/0/#inbox", 
-                partition: "persist:work", 
-                alert: alertFromNumber 
-            }
-        ]
-    }
-];
-```
