@@ -1,5 +1,4 @@
 import * as React from "react";
-import { WebviewTag } from "electron";
 
 import useContext from "./Context";
 
@@ -26,7 +25,7 @@ export default function Content() {
     return <div className={"context-wrap"}>
         {items.map((item, i) => <WebView
             key={i} 
-            className={`context ${activeItemIndex < i ? "left" : activeItemIndex > i ? "right" : "center"}`}
+            className={`context ${activeItemIndex < i ? "before" : activeItemIndex > i ? "after" : "center"}`}
             // style={{ display: activeItemIndex == i ? "flex" : "none" }}
             style={{ display: "flex" }}
             src={item.static.url}

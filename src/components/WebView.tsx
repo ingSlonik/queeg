@@ -49,34 +49,49 @@ export default function WebViewWrap({ className, style, src, partition, webViewF
     // reload
     useEffect(() => {
         if (reload === true) {
-            setDiv(null);
-            setWebview(null);
+            if (webview) {
+                webview.reload();
+            }
+            //setDiv(null);
+            //setWebview(null);
             onReloaded();
         }
     }, [ reload ]);
+
+    // GetTitle
+    useEffect(() => {
+        if (webview) {
+            function listener(e) {
+                getTitle(e.title);
+            }
+            webview.addEventListener("page-title-updated", listener);
+            return () => webview.removeEventListener("page-title-updated", listener);
+        } else {
+            return () => {};
+        }
+    }, [ getTitle ]);
 
     // WebviewFunction
     useEffect(() => {
         if (webview && webViewFunction) {
             const { mount, unmount } = webViewFunction(webview);
             mount();
-            return () => unmount();
+            return () => {
+                unmount();
+            }
         } else {
             return () => {};
         }
     }, [ webview, webViewFunction ]);
 
 
-    return reload === false && <div ref={refDiv => {
+    return <div ref={refDiv => {
         if (refDiv !== null && refDiv !== div) {
             const webview = document.createElement("webview");
             webview.src = src;
             webview.partition = partition;
             webview.addEventListener("new-window", (e) => {
                 shell.openExternal(e.url)
-            });
-            webview.addEventListener("page-title-updated", (e) => {
-                getTitle(e.title)
             });
 
             // getWebView(webview);
