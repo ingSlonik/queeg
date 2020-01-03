@@ -10,6 +10,8 @@ import SnackbarContent from '@material-ui/core/SnackbarContent';
 import Button from '@material-ui/core/Button';
 
 import IconButton from '@material-ui/core/IconButton';
+import SaveIcon from '@material-ui/icons/Save';
+import DeleteIcon from '@material-ui/icons/Delete';
 import CloseIcon from '@material-ui/icons/Close';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
@@ -19,7 +21,7 @@ import alerts from "../alerts";
 
 export default function ItemForm({ id }: { id: number }) {
 
-    const { items, saveItem } = useContext();
+    const { items, saveItem, deleteItem } = useContext();
     const item = items.filter(item => item.static.id === id)[0] || null;
     const [icons, setIcons] = React.useState<string[] | null>(null);
 
@@ -114,12 +116,28 @@ export default function ItemForm({ id }: { id: number }) {
                 <MenuItem value="secondary">secondary</MenuItem>
             </TextField>
 
-            <Button variant="contained" color="primary" onClick={() => {
-                saveItem(editItem);
-                setShowSnackbar(true);
-            }}>
-                Save
-            </Button>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<SaveIcon />}
+                    onClick={() => {
+                        saveItem(editItem);
+                        setShowSnackbar(true);
+                    }}>
+                    Save
+                </Button>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    startIcon={<DeleteIcon />}
+                    onClick={() => {
+                        deleteItem(editItem.id);
+                        setShowSnackbar(true);
+                    }}>
+                    Delete
+                </Button>
+            </div>
 
             <Snackbar
                 anchorOrigin={{

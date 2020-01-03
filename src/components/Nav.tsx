@@ -10,6 +10,9 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Tooltip from '@material-ui/core/Tooltip';
 
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
@@ -22,7 +25,7 @@ const Transition = React.forwardRef<unknown, TransitionProps>(function Transitio
 
 export default function Nav({ isSetting }: { isSetting: boolean }) {
 
-    const { items, activeItemIndex, setActiveItemIndex, addItem, setDynamicItemProps } = useContext();
+    const { items, activeItemIndex, setActiveItemIndex, addItem, setDynamicItemProps, changeOrder } = useContext();
 
     const [showSettings, setShowSettings] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
@@ -59,7 +62,7 @@ export default function Nav({ isSetting }: { isSetting: boolean }) {
                 />
             </Tooltip>)}
 
-            {isSetting && <Tab key={"add"} label={"Add new"} onClick={() => addItem({
+            {isSetting && <Tab key={"add"} label={"Add item"} icon={<AddIcon />} onClick={() => addItem({
                 id: null,
                 order: 100,
                 name: "New item",
@@ -88,8 +91,18 @@ export default function Nav({ isSetting }: { isSetting: boolean }) {
             }} >
                 Reload
             </MenuItem>
-            <MenuItem onClick={() => setShowContextMenu(null)}>Move up</MenuItem>
-            <MenuItem onClick={() => setShowContextMenu(null)}>Move down</MenuItem>
+            <MenuItem onClick={() => {
+                changeOrder(showContextMenu, "up");
+                setShowContextMenu(null);
+            }}>
+                Move up
+            </MenuItem>
+            <MenuItem onClick={() => {
+                changeOrder(showContextMenu, "down");
+                setShowContextMenu(null);
+            }}>
+                Move down
+            </MenuItem>
         </Menu>
 
         {!isSetting && <Dialog fullScreen open={showSettings} onClose={() => setShowSettings(false)} TransitionComponent={Transition}>

@@ -20,7 +20,7 @@ export default function Settings({ onClose }: SettingsProps) {
 
     const { items, activeItemIndex } = useContext();
 
-    return <>
+    return <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
         <AppBar position="static">
             <Toolbar>
                 <IconButton edge="start" color="inherit" onClick={onClose}>
@@ -32,7 +32,7 @@ export default function Settings({ onClose }: SettingsProps) {
             </Toolbar>
         </AppBar>
 
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", flexGrow: 1 }}>
             <Nav isSetting={true} />
             <div style={{ flexGrow: 1, flexBasis: "100px" }}>
                 {items.map((item, i) => <TabPanel key={item.static.id} value={activeItemIndex} index={i}>
@@ -40,7 +40,7 @@ export default function Settings({ onClose }: SettingsProps) {
                 </TabPanel>)}
             </div>
         </div>
-    </>;
+    </div>;
 }
 
 interface TabPanelProps {

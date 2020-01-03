@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { getItems, addItem, setItem } from "../services/db";
+import { getItems, addItem, setItem, deleteItem } from "../services/db";
 
 import { Item, StaticItemProps, DynamicItemProps } from "../types";
 
@@ -13,9 +13,11 @@ type ContextValue = {
 
     setActiveItemIndex: (index: number) => void,
 
-    addItem: (wva: StaticItemProps) => void,
+    addItem: (wva: StaticItemProps) => Promise<number>,
     saveItem: (wva: StaticItemProps) => void,
+    deleteItem: (id: number) => Promise<void>;
     setDynamicItemProps: (index: number, dip: DynamicItemProps) => void,
+    changeOrder: (index: number, direction: "up" | "down") => void,
 };
 
 const defaultContext: ContextValue = {
@@ -25,9 +27,11 @@ const defaultContext: ContextValue = {
     activeItemIndex: 0,
     items: [],
     setActiveItemIndex: () => {},
-    addItem: () => {},
+    addItem: async () => 0,
     saveItem: () => {},
+    deleteItem: async () => {},
     setDynamicItemProps: () => {},
+    changeOrder: () => {},
 }
 
 const Context = React.createContext(defaultContext);
@@ -56,12 +60,20 @@ export function Provider({ children, index }) {
             }));
         },
         addItem: async item => {
-            await setItem(item);
-            setItems(await getItemsForContext());
+            const id = await addItem(item);
+            const items = await getItemsForContext();
+            setItems(items);
+            setActiveItemIndex(items.length - 1);
+            return id;
         },
         saveItem: async item => {
             await setItem(item);
             setItems(await getItemsForContext());
+        },
+        deleteItem: async id => {
+            await deleteItem(id);
+            setItems(await getItemsForContext());
+            setActiveItemIndex(0);
         },
         setDynamicItemProps: (index, dynamic) => {
             setItems(items => items.map((item, i) => {
@@ -72,6 +84,21 @@ export function Provider({ children, index }) {
                 }
             }));
         },
+        changeOrder: async (index, direction) => {
+            for (let i = 0; i < items.length; i++) {
+                const item = items[i];
+                let order = i * 2;
+                if (i === index) {
+                    if (direction === "up") {
+                        order -= 3;
+                    } else {
+                        order += 3;
+                    }
+                }
+                await setItem({ ...item.static, order });
+            }
+            setItems(await getItemsForContext());
+        },
     }}>
         {children}
     </Context.Provider>
@@ -80,7 +107,7 @@ export function Provider({ children, index }) {
 async function getItemsForContext(): Promise<Item[]> {
     const staticProps = await getItems();
     
-    return staticProps.map(staticProp => {
+    return staticProps.sort((a, b) => a.order - b.order).map(staticProp => {
         return {
             static: staticProp,
             dynamic: {
