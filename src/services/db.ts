@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { insert, update, select } from "easy-db-node";
+import { insert, update, select, remove } from "easy-db-node";
 
 import { StaticItemProps } from "../types";
 
@@ -31,3 +30,6 @@ export async function setItem(item: StaticItemProps): Promise<void> {
     await update("item", item.id, item);
 }
 
+export async function deleteItem(id: number): Promise<void> {
+    await remove("item", id);
+}
