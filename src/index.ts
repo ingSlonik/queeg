@@ -34,7 +34,7 @@ function createWindow(application: Application, index: number) {
         width: 1200,
         height: 728,
         // darkTheme: true,
-        // autoHideMenuBar: true,
+        autoHideMenuBar: true,
         icon: resolve(__dirname, "..", "img", application.icon),
         webPreferences: {
             nodeIntegration: true,
@@ -46,7 +46,7 @@ function createWindow(application: Application, index: number) {
     window.loadFile(resolve(__dirname, "..", "static", "index.html" ), { search: `index=${index}` });
 
     // Open the DevTools.
-    window.webContents.openDevTools();
+    // window.webContents.openDevTools();
 
     // Emitted when the window is closed.
     window.on("closed", () => {
