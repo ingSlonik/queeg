@@ -49,7 +49,7 @@ body, #main {
     height: 100%;
     top: 0px;
     left: 0px;
-    transition: 0.5s linear;
+    transition: 0.25s linear;
 }
 .context.before {
     top: 100%;
