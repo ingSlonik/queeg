@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 type KeyEvents = { onKeyDown: (key: string) => void, onKeyUp: (key: string) => void };
 
 export function useKeyEvents(onChange: () => void, onConfirm: () => void) {
-    const [ keyEvents, setKeyEvents ] = useState<KeyEvents>({});
+    const [ keyEvents, setKeyEvents ] = useState<KeyEvents>({ onKeyDown: () => {}, onKeyUp: () => {} });
 
     const [ pressControl, setPressControl ] = useState(false);
     const [ switchTabState, setSwitchTabState ] = useState(false);

@@ -28,14 +28,10 @@ export default function Nav({ isSetting }: { isSetting: boolean }) {
     const { items, activeItemIndex, setActiveItemIndex, addItem, setDynamicItemProps, changeOrder } = useContext();
 
     const [showSettings, setShowSettings] = React.useState(false);
-    const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+    const [anchorEl, setAnchorEl] = React.useState(null);
     const [showContextMenu, setShowContextMenu] = React.useState<null | number>(null);
 
-    const activeItem = items[activeItemIndex];
-
-    if (!activeItem) {
-        return <CircularProgress />;
-    }
+    const activeItem = items[activeItemIndex] || { static: { color: "primary" }};
 
     return <>
         <Tabs

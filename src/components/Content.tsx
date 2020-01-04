@@ -23,6 +23,10 @@ export default function Content() {
     }, [ JSON.stringify(alertNames) ]);
 
     return <div className={"context-wrap"}>
+        {items.length === 0 && <div style={{ textAlign: "center" }}>
+            <h1>Welcome to the Queeg</h1>
+            <p>Click to settings ;-)</p>
+        </div>}
         {items.map((item, i) => <WebView
             key={i} 
             className={`context ${activeItemIndex < i ? "before" : activeItemIndex > i ? "after" : "center"}`}

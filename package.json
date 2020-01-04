@@ -26,8 +26,8 @@
     "url": "https://github.com/ingSlonik/queeg/issues"
   },
   "devDependencies": {
-    "@types/react": "^16.11.0",
-    "@types/react-dom": "^16.11.0",
+    "@types/react": "^16.9.17",
+    "@types/react-dom": "^16.9.4",
     "electron-packager": "^14.1.1",
     "typescript": "^3.7.4"
   },
