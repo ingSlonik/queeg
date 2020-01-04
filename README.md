@@ -1,23 +1,23 @@
 # Queeg
 
-Make from your the best usable websites desktop application customized just for you.
-
-Are you bored that you have everything in one browser?
-Do you want have separate context?
+Add your most used web pages to the desktop application customized just for you.
 
 ![Gueeg](img/screen.png)
 
-## Usecases
+## Features
 
-* Separate application for messeging.
-  * For it you can use application [Franz](https://meetfranz.com/).
-* Have different context (work and personal accounts) inner one or more windows.
-* Set you own icon and name for each window for more organization on your desktop.
-  * Work application and Personal application.
-  * YouTube application.
-* You can show different alerts or notification from each different website.
-  * Gmail with unread messages.
-  * When Toggle is not running and you use your Gmail.
+- [x] Add/Edit/Remove web pages directly in the application.
+- [x] Separate context (logins) between web pages.
+- [x] Reload pages by click.
+- [x] Change order of web pages.
+- [x] Show different alerts or notification for each different web site.
+- [x] `Ctrl` + `Tab` switch webpages by history.
+- [ ] Change name of window in application.
+- [ ] Change icon of Queeg in application.
+- [ ] Upload your own icon for web page in application.
+- [ ] Set size of navigation.
+- [ ] Move navigation to top.
+- [ ] Create your own alert script in application.
 
 ## Install and run
 
@@ -29,7 +29,7 @@ Do you want have separate context?
 
 ### For developers (cool people)
 
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer.
 
 ```bash
 # Clone this repository
@@ -41,35 +41,3 @@ npm install
 # Run the app
 npm start
 ```
-
-## Configuration
-
-Open `./src/configuration.ts` and update it in JSON format.
-After update run app again `npm start`.
-Recommended IDE is Visual Studio Code, it will be shown your mistakes. 
-Otherwise it will be display where is the mistake with run this application.
-
-### Properties
-
-* title
-  * Title of application.
-
-* name
-  * Name of this website item.
-
-* icon
-  * Icon in folder `./img/` for this website item. You can add your own.
-
-* color
-  * Color for nice separate group of your websites.
-
-* url
-  * URL of your website item.
-
-* partition
-  * Separate context of websites by definition in [webview partition](https://electronjs.org/docs/api/webview-tag#partition).
-
-* alert
-  * Function for get number of alert displaed in red circle on icon.
-  * You can add your own function to `src/alerts.ts`.
-  * ![Alert](img/alert.png)
