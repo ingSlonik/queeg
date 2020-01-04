@@ -37,15 +37,6 @@ export default function WebViewWrap({ className, style, src, partition, webViewF
         }
     }, []);
 
-    // change src and partition
-    useEffect(() => {
-        if (div && webview) {
-            webview.src = src;
-            // Partition cannot by changed on the fly :(
-            // webview.partition = partition;
-        }
-    }, [ src, partition ]);
-
     // reload
     useEffect(() => {
         if (reload === true) {
@@ -84,11 +75,28 @@ export default function WebViewWrap({ className, style, src, partition, webViewF
         }
     }, [ webview, webViewFunction ]);
 
+    // src
+    useEffect(() => {
+        if (webview) {
+            webview.src = src;
+        }
+    }, [ webview, src ]);
+
+    // partition
+    useEffect(() => {
+        if (div && webview) {
+            if (div.contains(webview)) {
+                div.removeChild(webview);
+                setDiv(null);
+                setWebview(null);
+            }
+        }
+    }, [ partition ]);
 
     return <div ref={refDiv => {
         if (refDiv !== null && refDiv !== div) {
             const webview = document.createElement("webview");
-            webview.src = src;
+            
             webview.partition = partition;
             webview.addEventListener("new-window", (e) => {
                 shell.openExternal(e.url)
