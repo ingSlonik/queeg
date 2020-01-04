@@ -94,7 +94,9 @@ export default function ItemForm({ id }: { id: number }) {
                 margin="normal"
                 value={editItem.partition}
                 onChange={e => setEditItem({ ...editItem, partition: e.target.value })}
+                helperText={<a target={"_blank"} href={"https://electronjs.org/docs/api/webview-tag#partition"}>https://electronjs.org/docs/api/webview-tag#partition</a>}
             />
+            
             {/*<TextField
                 fullWidth
                 id="shortText"
