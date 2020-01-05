@@ -10,6 +10,7 @@ const alerts: Alerts = {
         fn: (item, cb) => (webview) => {
             const listener = (event) => {
                 const result = event.title.match(getNumberInBracket);
+                console.log({event, result})
                 if (result && result[1]) {
                     cb(result[1]);
                 } else {
@@ -69,7 +70,7 @@ const alerts: Alerts = {
                 console.log('Guest page logged a message:', item.static.name, event.message)
             }
 
-            cb(null);
+            cb("Dev");
 
             return {
                 mount: () => {

@@ -16,7 +16,7 @@ type ContextValue = {
     addItem: (wva: StaticItemProps) => Promise<number>,
     saveItem: (wva: StaticItemProps) => void,
     deleteItem: (id: number) => Promise<void>;
-    setDynamicItemProps: (index: number, dip: DynamicItemProps) => void,
+    setDynamicItemProps: (index: number, set: (dip: DynamicItemProps) => DynamicItemProps) => void,
     changeOrder: (index: number, direction: "up" | "down") => void,
 };
 
@@ -75,10 +75,10 @@ export function Provider({ children, index }) {
             setItems(await getItemsForContext());
             setActiveItemIndex(0);
         },
-        setDynamicItemProps: (index, dynamic) => {
+        setDynamicItemProps: (index, set) => {
             setItems(items => items.map((item, i) => {
                 if (index === i) {
-                    return { ...item, dynamic };
+                    return { ...item, dynamic: set(item.dynamic) };
                 } else {
                     return item;
                 }

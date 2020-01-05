@@ -82,7 +82,7 @@ export default function Nav({ isSetting }: { isSetting: boolean }) {
         >
             <MenuItem button={false}><b>{items[showContextMenu] && items[showContextMenu].static.name}</b></MenuItem>
             <MenuItem onClick={() => {
-                items[showContextMenu] && setDynamicItemProps(showContextMenu, { ...items[showContextMenu].dynamic, reload: true });
+                items[showContextMenu] && setDynamicItemProps(showContextMenu, dynamic => ({ ...dynamic, reload: true }));
                 setShowContextMenu(null);
             }} >
                 Reload

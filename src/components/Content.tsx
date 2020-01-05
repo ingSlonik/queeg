@@ -11,11 +11,12 @@ export default function Content() {
 
     const alertNames = items.map(item => item.static.alert);
 
+    // TODO: alerty nejdou
     const webViewFunctions = React.useMemo(() => {
-        return alertNames.map((alert, i) => {
+        return items.map((item, i) => {
+            const { alert } = item.static;
             if (alert && alerts[alert]) {
-                const item = items[i];
-                return alerts[alert].fn(item, alert => setDynamicItemProps(i, { ...item.dynamic, alert }))
+                return alerts[alert].fn(item, alert => setDynamicItemProps(i, dynamic => ({ ...dynamic, alert })))
             } else {
                 return null;
             }
@@ -36,8 +37,8 @@ export default function Content() {
             partition={item.static.partition}
             webViewFunction={webViewFunctions[i]}
             reload={item.dynamic.reload}
-            onReloaded={() => setDynamicItemProps(i, { ...item.dynamic, reload: false })}
-            getTitle={title => setDynamicItemProps(i, { ...item.dynamic, title })}
+            onReloaded={() => setDynamicItemProps(i, dynamic => ({ ...dynamic, reload: false }))}
+            getTitle={title => setDynamicItemProps(i, dynamic => ({ ...dynamic, title }))}
         />)}
     </div>;
 }
