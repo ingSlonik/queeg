@@ -12,12 +12,15 @@ Add your most used web pages to the desktop application customized just for you.
 - [x] Change order of web pages.
 - [x] Show different alerts or notification for each different web site.
 - [x] `Ctrl` + `Tab` switch webpages by history.
-- [ ] Change name of window in application.
-- [ ] Change icon of Queeg in application.
-- [ ] Upload your own icon for web page in application.
+- [ ] Change name of window in the application.
+- [ ] Change icon of Queeg in the application.
+- [ ] Multiple windows in one instance.
+- [ ] Version checker.
+- [ ] Upload your own icon for web page in teh application.
 - [ ] Set size of navigation.
 - [ ] Move navigation to top.
-- [ ] Create your own alert script in application.
+- [ ] Auto download new version.
+- [ ] Create your own alert script in the application.
 
 ## Install and run
 
