@@ -19,6 +19,8 @@ import useContext from "./Context";
 
 import alerts from "../alerts";
 
+const iconPath = resolve(__filename, "..", "..", "..", "img", "icons");
+
 export default function ItemForm({ id }: { id: number }) {
 
     const { items, saveItem, deleteItem } = useContext();
@@ -29,7 +31,7 @@ export default function ItemForm({ id }: { id: number }) {
     const [showSnackbar, setShowSnackbar] = React.useState(false);
 
     React.useEffect(() => {
-        readdir(resolve("img", "icons"), { encoding: "utf8" }, (err, files) => {
+        readdir(iconPath, { encoding: "utf8" }, (err, files) => {
             if (files) {
                 setIcons(files.filter(name => name.endsWith(".png")));
             }
@@ -60,7 +62,7 @@ export default function ItemForm({ id }: { id: number }) {
             >
                 {icons.map(icon => (
                     <MenuItem key={icon} value={icon}>
-                        <img style={{ height: "20px", marginRight: "16px" }} src={`../img/icons/${icon}`} /> {" "}
+                        <img style={{ height: "20px", marginRight: "16px" }} src={resolve(iconPath, icon)} /> {" "}
                         {icon}
                     </MenuItem>
                 ))}

@@ -1,3 +1,5 @@
+import { resolve } from "path";
+
 import * as React from "react";
 
 import Dialog from '@material-ui/core/Dialog';
@@ -18,6 +20,8 @@ import Tab from '@material-ui/core/Tab';
 
 import useContext from "./Context";
 import Settings from "./Settings";
+
+const iconPath = resolve(__filename, "..", "..", "..", "img", "icons");
 
 const Transition = React.forwardRef<unknown, TransitionProps>(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -47,7 +51,7 @@ export default function Nav({ isSetting }: { isSetting: boolean }) {
                     aria-describedby={`nav-item-${i}`}
                     color={item.static.color}
                     icon={<Badge color={item.static.color} badgeContent={item.dynamic.alert}>
-                        <img alt={item.static.name} src={`../img/icons/${item.static.icon}`} style={{ maxWidth: "32px" }} />
+                        <img alt={item.static.name} src={resolve(iconPath, item.static.icon)} style={{ maxWidth: "32px" }} />
                     </Badge>}
                     label={item.static.name}
                     onClick={() => setActiveItemIndex(i)}
