@@ -1,8 +1,20 @@
 # Queeg changelog
 
+## v1.1.0 (2020-03-22)
+
+### Feature
+
+- Change name of window in the application.
+- Change icon of Queeg in the application.
+- Multiple windows in one instance.
+
+### Bugfix
+
+- Fix icons for zip installation.
+
 ## v1.0.1 (2020-01-05)
 
-# Bugfix
+### Bugfix
 
 - Fix title tooltip with alert.
 
