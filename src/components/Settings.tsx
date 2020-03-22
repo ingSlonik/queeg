@@ -9,8 +9,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Box from '@material-ui/core/Box';
 
 import useContext from "./Context";
-import ItemForm from "./FormItem";
-import Nav from "./Nav";
+import FormWindow from "./FormWindow";
 
 type SettingsProps = {
     onClose: () => void,
@@ -32,13 +31,8 @@ export default function Settings({ onClose }: SettingsProps) {
             </Toolbar>
         </AppBar>
 
-        <div style={{ display: "flex", flexGrow: 1 }}>
-            <Nav isSetting={true} />
-            <div style={{ flexGrow: 1, flexBasis: "100px" }}>
-                {items.map((item, i) => <TabPanel key={item.static.id} value={activeItemIndex} index={i}>
-                    <ItemForm id={item.static.id} />
-                </TabPanel>)}
-            </div>
+        <div style={{ flexGrow: 1, flexBasis: "500px", padding: "0px 64px 32px" }}>
+            <FormWindow />
         </div>
     </div>;
 }
