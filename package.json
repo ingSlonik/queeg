@@ -34,6 +34,7 @@
   "dependencies": {
     "@material-ui/core": "^4.8.2",
     "@material-ui/icons": "^4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.46",
     "easy-db-node": "^0.1.1",
     "electron": "^7.1.7",
     "react": "^16.12.0",
