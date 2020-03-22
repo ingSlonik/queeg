@@ -51,6 +51,7 @@ export default function ItemForm({ id }: { id: number }) {
                 value={editItem.name}
                 onChange={e => setEditItem({ ...editItem, name: e.target.value })}
             />
+            {icons === null && <div>Loading icons...</div>}
             {icons !== null && <TextField
                 select
                 fullWidth
