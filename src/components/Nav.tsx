@@ -27,7 +27,7 @@ const Transition = React.forwardRef<unknown, TransitionProps>(function Transitio
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Nav({ isSetting }: { isSetting: boolean }) {
+export default function Nav() {
 
     const { items, activeItemIndex, setActiveItemIndex, addItem, setDynamicItemProps, changeOrder } = useContext();
 
@@ -35,7 +35,7 @@ export default function Nav({ isSetting }: { isSetting: boolean }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [showContextMenu, setShowContextMenu] = React.useState<null | number>(null);
 
-    const activeItem = items[activeItemIndex] || { static: { color: "primary" }};
+    const activeItem = items[activeItemIndex] || { static: { color: "primary" } };
 
     return <>
         <Tabs
@@ -62,19 +62,22 @@ export default function Nav({ isSetting }: { isSetting: boolean }) {
                 />
             </Tooltip>)}
 
-            {isSetting && <Tab key={"add"} label={"Add item"} icon={<AddIcon />} onClick={() => addItem({
-                id: null,
-                order: 100,
-                name: "New item",
-                icon: "icon.png",
-                color: "primary",
-                url: "https://github.com/ingSlonik/queeg/",
-                partition: "persist:personal",
-                shortText: "",
-                alert: null,
-            })} />}
+            <Tab key={"add"} label={"Add item"} icon={<AddIcon />} onClick={async () => {
+                await addItem({
+                    id: null,
+                    order: 100,
+                    name: "New item",
+                    icon: "icon.png",
+                    color: "primary",
+                    url: "https://github.com/ingSlonik/queeg/",
+                    partition: "persist:personal",
+                    shortText: "",
+                    alert: null,
+                });
+            }} />
 
-            {!isSetting && <Tab key={"add"} icon={<SettingsIcon />} label="Settings" onClick={() => setShowSettings(true)} />}
+            <Tab key={"settings"} icon={<SettingsIcon />} label="Settings" onClick={() => setShowSettings(true)} />
+
         </Tabs>
 
         <Menu
@@ -92,6 +95,12 @@ export default function Nav({ isSetting }: { isSetting: boolean }) {
                 Reload
             </MenuItem>
             <MenuItem onClick={() => {
+                items[showContextMenu] && setDynamicItemProps(showContextMenu, dynamic => ({ ...dynamic, showForm: true }));
+                setShowContextMenu(null);
+            }}>
+                Edit
+            </MenuItem>
+            <MenuItem onClick={() => {
                 changeOrder(showContextMenu, "up");
                 setShowContextMenu(null);
             }}>
@@ -105,8 +114,8 @@ export default function Nav({ isSetting }: { isSetting: boolean }) {
             </MenuItem>
         </Menu>
 
-        {!isSetting && <Dialog fullScreen open={showSettings} onClose={() => setShowSettings(false)} TransitionComponent={Transition}>
+        <Dialog fullScreen open={showSettings} onClose={() => setShowSettings(false)} TransitionComponent={Transition}>
             <Settings onClose={() => setShowSettings(false)} />
-        </Dialog>}
+        </Dialog>
     </>;
 }
