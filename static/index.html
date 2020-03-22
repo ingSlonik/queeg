@@ -11,12 +11,12 @@
     <div id="main"></div>
     <script>
         const url = new URL(window.location);
-        const applicationIndex = url.searchParams.get("index");
+        const windowId = url.searchParams.get("id");
 
         const body = document.getElementById("main");
 
         const renderer = require('../lib/window.js').default;
-        renderer(applicationIndex, body);
+        renderer(windowId, body);
     </script>
 </body>
 
