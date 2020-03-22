@@ -1,5 +1,11 @@
 # Queeg changelog
 
+## v1.1.1 (2020-03-22)
+
+### Update
+
+- Update electron to v8.1.1.
+
 ## v1.1.0 (2020-03-22)
 
 ### Feature
