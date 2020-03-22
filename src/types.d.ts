@@ -23,6 +23,7 @@ export type Item = {
 
 export type StaticItemProps = {
     id: number,
+    windowId?: number, // back compatibility
     order: number,
     name: string,
     icon: Icon,
@@ -34,6 +35,7 @@ export type StaticItemProps = {
 };
 
 export type DynamicItemProps = {
+    showForm: boolean,
     title: string,
     alert: string,
     reload: boolean,
@@ -41,8 +43,15 @@ export type DynamicItemProps = {
 };
 
 export type Application = {
+    id: number,
     title: string,
     icon: Icon,
     activeItemIndex: number,
     items: Array<Item>,
+};
+
+export type WindowSettings = {
+    id: number,
+    title: string,
+    icon: Icon,
 };
