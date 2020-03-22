@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: supamiu/circleci-node-wine
+      - image: frankie567/node-wine
     steps:
       - checkout
       - run:
@@ -17,9 +17,9 @@ jobs:
       - run:
           name: build-for-mac
           command: npm run build:mac
-      # - run:
-      #     name: build-for-win
-      #     command: npm run build:win
+      - run:
+          name: build-for-win
+          command: npm run build:win
       - run:
           name: create-folder-artifacts
           command: mkdir artifacts
@@ -29,12 +29,12 @@ jobs:
             cd dist/app-linux-x64/
             zip -r ../../artifacts/queeg-linux-x64.zip .
             cd ../..
-      # - run:
-      #     name: create-zip-win
-      #     command: |
-      #       cd dist/app-win32-x64/
-      #       zip -r ../../artifacts/queeg-win32-x64.zip .
-      #       cd ../..
+      - run:
+          name: create-zip-win
+          command: |
+            cd dist/app-win32-x64/
+            zip -r ../../artifacts/queeg-win32-x64.zip .
+            cd ../..
       - run:
           name: create-zip-mac
           command: |
