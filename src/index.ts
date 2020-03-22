@@ -1,41 +1,34 @@
-import { Application } from "./types";
-
 // Modules to control application life and create native browser window
-import { app, BrowserWindow } from "electron";
+import { app, nativeImage, BrowserWindow } from "electron";
 import { resolve } from "path";
 
-// import { getWindowsConfiguration } from "./services/db";
+import { getWindows } from "./services/db";
 
-// const configuration = await getWindowsConfiguration();
-const configuration = [
-    {
-        title: "Queeg",
-        icon: "icon.ico",
-        activeItemIndex: 0,
-        items: []
-    }
-];
+import { WindowSettings } from "./types";
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-const windows = [];
+const windows = {};
 
-function openAllWindows() {
-    configuration.forEach((application, index) => {
-        if (typeof windows[index] === "undefined" || windows[index] === null) {
-            createWindow(application, index);
+async function openAllWindows() {
+    const configuration = await getWindows();
+
+    configuration.forEach((windowSettings) => {
+        const { id } = windowSettings;
+        if (typeof windows[id] === "undefined" || windows[id] === null) {
+            createWindow(windowSettings);
         }
     });
 }
 
-function createWindow(application: Application, index: number) {
+function createWindow(windowSettings: WindowSettings) {
     // Create the browser window.
     const window = new BrowserWindow({
         width: 1200,
         height: 728,
         // darkTheme: true,
         autoHideMenuBar: true,
-        icon: resolve(__dirname, "..", "img", application.icon),
+        icon: nativeImage.createFromPath(resolve(__filename, "..", "..", "img", "icons", windowSettings.icon)),
         webPreferences: {
             nodeIntegration: true,
             webviewTag: true,
@@ -43,7 +36,7 @@ function createWindow(application: Application, index: number) {
     });
 
     // and load the index.html of the app.
-    window.loadFile(resolve(__dirname, "..", "static", "index.html" ), { search: `index=${index}` });
+    window.loadFile(resolve(__dirname, "..", "static", "index.html" ), { search: `id=${windowSettings.id}` });
 
     // Open the DevTools.
     // window.webContents.openDevTools();
@@ -53,10 +46,10 @@ function createWindow(application: Application, index: number) {
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
-        windows[index] = null;
+        windows[windowSettings.id] = null;
     })
 
-    windows[index] = window;
+    windows[windowSettings.id] = window;
 }
 
 // This method will be called when Electron has finished
