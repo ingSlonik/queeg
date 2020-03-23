@@ -1,5 +1,15 @@
 # Queeg changelog
 
+## v1.1.2 (2020-03-23)
+
+### Update
+
+- Update default icons list.
+
+### Bugfix
+
+- Fix logging to google services.
+
 ## v1.1.1 (2020-03-22)
 
 ### Update
