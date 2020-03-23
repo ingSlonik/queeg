@@ -52,6 +52,9 @@ function createWindow(windowSettings: WindowSettings) {
     windows[windowSettings.id] = window;
 }
 
+// Fix login to google services by https://www.reddit.com/r/electronjs/comments/eiy2sf/google_blocking_log_in_from_electron_apps/
+app.userAgentFallback = app.userAgentFallback.replace('Electron/' + process.versions.electron, '');
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
