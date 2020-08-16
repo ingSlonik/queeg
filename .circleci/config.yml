@@ -37,27 +37,27 @@ jobs:
           root: artifacts
           paths: .
 
-  build-win:
-    machine:
-      image: windows-default # Windows machine image
-    resource_class: windows.medium
-    steps:
-      # Commands are run in a Windows virtual machine environment
-        - attach_workspace:
-            at: artifacts
-        - run:
-            name: npm-install
-            command: npm install -f
-        - run:
-            name: build-for-win
-            command: npm run build:win
-        - run: cd artifacts
-        - run:
-            name: create-zip-win
-            command: tar -cvzf queeg-win32-x64.zip "..\dist\app-win32-x64"
-        - persist_to_workspace:
-            root: artifacts
-            paths: .
+  #build-win:
+  #  machine:
+  #    image: windows-default # Windows machine image
+  #  resource_class: windows.medium
+  #  steps:
+  #    # Commands are run in a Windows virtual machine environment
+  #      - attach_workspace:
+  #          at: artifacts
+  #      - run:
+  #          name: npm-install
+  #          command: npm install -f
+  #      - run:
+  #          name: build-for-win
+  #          command: npm run build:win
+  #      - run: cd artifacts
+  #      - run:
+  #          name: create-zip-win
+  #          command: tar -cvzf queeg-win32-x64.zip "..\dist\app-win32-x64"
+  #      - persist_to_workspace:
+  #          root: artifacts
+  #          paths: .
 
   publish-github-release:
     docker:
@@ -80,14 +80,14 @@ workflows:
           filters:
             branches:
               only: master
-      - build-win:
-          filters:
-            branches:
-              only: master
+      # - build-win:
+      #     filters:
+      #       branches:
+      #         only: master
       - publish-github-release:
           requires:
             - build-unix
-            - build-win
+            # - build-win
           filters:
             branches:
               only: master
