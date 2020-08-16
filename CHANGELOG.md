@@ -1,5 +1,12 @@
 # Queeg changelog
 
+## v1.2.0 (2020-08-16)
+
+### Update
+
+- Add dark mode.
+- Fix google login by 2-factor authentication.
+
 ## v1.1.2 (2020-03-23)
 
 ### Update
