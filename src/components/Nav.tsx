@@ -23,7 +23,10 @@ import Settings from "./Settings";
 
 const iconPath = resolve(__filename, "..", "..", "..", "img", "icons");
 
-const Transition = React.forwardRef<unknown, TransitionProps>(function Transition(props, ref) {
+const Transition = React.forwardRef(function Transition(
+    props: TransitionProps & { children?: React.ReactElement<any, any> },
+    ref: React.Ref<unknown>,
+) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
@@ -39,7 +42,7 @@ export default function Nav() {
 
     return <>
         <Tabs
-            style={{ width: "150px", zIndex: 10, backgroundColor: "white" }}
+            style={{ width: "150px", zIndex: 10 }}
             orientation="vertical"
             variant="scrollable"
             value={activeItemIndex}
