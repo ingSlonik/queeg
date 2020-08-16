@@ -53,8 +53,8 @@ jobs:
             command: npm run build:win
         - run: cd artifacts
         - run:
-          name: create-zip-win
-          command: tar -cvzf queeg-win32-x64.zip "..\dist\app-win32-x64"
+            name: create-zip-win
+            command: tar -cvzf queeg-win32-x64.zip "..\dist\app-win32-x64"
         - persist_to_workspace:
             root: artifacts
             paths: .
