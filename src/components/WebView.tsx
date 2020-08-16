@@ -41,6 +41,7 @@ export default function WebViewWrap({ className, style, src, partition, webViewF
     useEffect(() => {
         if (reload === true) {
             if (webview) {
+                webview.src = src;
                 webview.reload();
             }
             //setDiv(null);
@@ -96,7 +97,7 @@ export default function WebViewWrap({ className, style, src, partition, webViewF
     return <div ref={refDiv => {
         if (refDiv !== null && refDiv !== div) {
             const webview = document.createElement("webview");
-            
+
             webview.partition = partition;
             webview.addEventListener("new-window", (e) => {
                 shell.openExternal(e.url)
