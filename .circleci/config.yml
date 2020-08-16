@@ -1,6 +1,7 @@
-version: 2
+version: 2.1
+
 jobs:
-  build:
+  build-unix:
     docker:
       - image: supamiu/circleci-node-wine
     steps:
@@ -18,9 +19,6 @@ jobs:
           name: build-for-mac
           command: npm run build:mac
       - run:
-          name: build-for-win
-          command: npm run build:win
-      - run:
           name: create-folder-artifacts
           command: mkdir artifacts
       - run:
@@ -28,12 +26,6 @@ jobs:
           command: |
             cd dist/app-linux-x64/
             zip -r ../../artifacts/queeg-linux-x64.zip .
-            cd ../..
-      - run:
-          name: create-zip-win
-          command: |
-            cd dist/app-win32-x64/
-            zip -r ../../artifacts/queeg-win32-x64.zip .
             cd ../..
       - run:
           name: create-zip-mac
@@ -44,6 +36,30 @@ jobs:
       - persist_to_workspace:
           root: artifacts
           paths: .
+
+  build-win:
+    machine:
+      image: windows-default # Windows machine image
+      resource_class: windows.medium
+    steps:
+      # Commands are run in a Windows virtual machine environment
+        - attach_workspace:
+            at: artifacts
+        - run:
+            name: npm-install
+            command: npm install -f
+        - run:
+            name: build-for-win
+            command: npm run build:win
+        - run:
+          name: create-zip-win
+          command: |
+            cd dist/app-win32-x64/
+            zip -r ../../artifacts/queeg-win32-x64.zip .
+            cd ../..
+        - persist_to_workspace:
+            root: artifacts
+            paths: .
 
   publish-github-release:
     docker:
