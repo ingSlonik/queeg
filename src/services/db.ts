@@ -30,7 +30,6 @@ export async function deleteWindow(id: number): Promise<void> {
 
 // Items
 export async function getItems(windowId: number): Promise<StaticItemProps[]> {
-    console.log({windowId})
     const items = await select(ITEM_COLLECTION);
     return Object.keys(items).map(id => ({ ...items[id], id })).filter(item => {
         // back compatibility
