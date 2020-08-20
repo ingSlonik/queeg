@@ -39,7 +39,7 @@ export default function Content() {
             <h1>Welcome to the Queeg</h1>
             <p>Add your first item on left ;-)</p>
         </div>}
-        {editItem && editIndex !== null && <div style={{ display: "flex", flexDirection: "column", position: "relative", zIndex: 100, backgroundColor: "white", height: "100%", width: "100%" }}>
+        {editItem && editIndex !== null && <div className="MuiPaper-root" style={{ display: "flex", flexDirection: "column", position: "relative", zIndex: 100, height: "100%", width: "100%" }}>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton edge="start" color="inherit" onClick={() => setDynamicItemProps(editIndex, dynamic => ({ ...dynamic, showForm: false }))}>
@@ -47,7 +47,7 @@ export default function Content() {
                     </IconButton>
                     <Typography variant="h6">
                         Edit
-                </Typography>
+                    </Typography>
                 </Toolbar>
             </AppBar>
             <div style={{ flexGrow: 1, padding: "32px 64px" }}>

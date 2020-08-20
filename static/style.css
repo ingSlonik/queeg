@@ -40,6 +40,7 @@ body, #main {
 .context-wrap {
     position: relative;
     flex-grow: 1;
+    flex-basis: 300px;
 }
 .context {
     position: absolute;
