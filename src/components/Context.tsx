@@ -61,9 +61,10 @@ export function Provider({ children, windowId }: { children: React.ReactChild ,w
 
     React.useEffect(() => {
         getItemsForContext(windowId).then(items => setItems(items));
-        getWindows().then(ws => ws.filter(({ id }) => id === windowId).forEach(({ title, icon }) => {
+        getWindows().then(ws => ws.filter(({ id }) => id === windowId).forEach(({ title, icon, spellCheckers }) => {
             setTitle(title);
             setIcon(icon);
+            setSpellCheckers(spellCheckers);
         }));
     }, []);
 
@@ -89,9 +90,9 @@ export function Provider({ children, windowId }: { children: React.ReactChild ,w
         removeWindow: () => {
             deleteWindow(windowId);
         },
-        setWindowProps: ({ title, icon }: WindowProps) => {
+        setWindowProps: ({ title, icon, spellCheckers }: WindowProps) => {
             setTitle(title);
-            setWindow({ id: windowId, title, icon });
+            setWindow({ id: windowId, title, icon, spellCheckers });
         },
 
         items,
