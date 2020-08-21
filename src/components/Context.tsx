@@ -64,7 +64,9 @@ export function Provider({ children, windowId }: { children: React.ReactChild ,w
         getWindows().then(ws => ws.filter(({ id }) => id === windowId).forEach(({ title, icon, spellCheckers }) => {
             setTitle(title);
             setIcon(icon);
-            setSpellCheckers(spellCheckers);
+            if (spellCheckers) {
+                setSpellCheckers(spellCheckers);
+            }
         }));
     }, []);
 
