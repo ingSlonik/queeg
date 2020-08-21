@@ -39,7 +39,7 @@ function createWindow(windowSettings: WindowSettings) {
     });
 
     if (platform() !== "darwin" && Array.isArray(windowSettings.spellCheckers)) {
-        window.webContents.session.setSpellCheckerLanguages(windowSettings.spellCheckers)
+        window.webContents.session.setSpellCheckerLanguages(windowSettings.spellCheckers);
     }
 
     // and load the index.html of the app.

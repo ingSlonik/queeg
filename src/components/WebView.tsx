@@ -99,6 +99,7 @@ export default function WebViewWrap({ className, style, src, partition, webViewF
             const webview = document.createElement("webview");
 
             webview.partition = partition;
+            webview.spellcheck = true;
             webview.addEventListener("new-window", (e) => {
                 shell.openExternal(e.url)
             });
