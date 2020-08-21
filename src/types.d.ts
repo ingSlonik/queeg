@@ -54,4 +54,5 @@ export type WindowSettings = {
     id: number,
     title: string,
     icon: Icon,
+    spellCheckers?: string[], // back compatibility
 };

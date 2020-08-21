@@ -1,5 +1,6 @@
 // Modules to control application life and create native browser window
-import { app, nativeImage, BrowserWindow } from "electron";
+import { app, nativeImage, ipcMain, BrowserWindow } from "electron";
+import { platform } from "os";
 import { resolve } from "path";
 
 import { getWindows } from "./services/db";
@@ -33,8 +34,13 @@ function createWindow(windowSettings: WindowSettings) {
             // contextIsolation: true,
             nodeIntegration: true,
             webviewTag: true,
+            spellcheck: true,
         }
     });
+
+    if (platform() !== "darwin" && Array.isArray(windowSettings.spellCheckers)) {
+        window.webContents.session.setSpellCheckerLanguages(windowSettings.spellCheckers)
+    }
 
     // and load the index.html of the app.
     window.loadFile(resolve(__dirname, "..", "static", "index.html" ), { search: `id=${windowSettings.id}` });
@@ -74,3 +80,21 @@ app.on("activate", () => {
     // dock icon is clicked and there are no other windows open.
     openAllWindows();
 });
+
+// -------------- Spell Checking -------------
+
+ipcMain.on("get-languages", (event, arg) => {
+    const window = getAnyWindow();
+    if (window === null) {
+        event.returnValue = "[]";
+    } else {
+        event.returnValue = JSON.stringify(window.webContents.session.availableSpellCheckerLanguages);
+    }
+});
+
+function getAnyWindow(): null | BrowserWindow {
+    for (const id in windows) {
+        return windows[id];
+    }
+    return null;
+}

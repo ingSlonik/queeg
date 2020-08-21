@@ -8,6 +8,7 @@ type WindowProps = {
     title: string,
     icon: string,
     nav: { position: "left" | "top", size: number },
+    spellCheckers: string[],
 };
 
 type ContextValue = WindowProps & {
@@ -34,6 +35,7 @@ const defaultContext: ContextValue = {
     title: "Queeg",
     icon: "icon.png",
     nav: { position: "left", size: 150 },
+    spellCheckers: [ "en-US" ],
     activeItemIndex: 0,
     items: [],
     setWindowProps: () => {},
@@ -53,6 +55,7 @@ export function Provider({ children, windowId }: { children: React.ReactChild ,w
 
     const [ title, setTitle ] = React.useState(defaultContext.title);
     const [ icon, setIcon ] = React.useState(defaultContext.icon);
+    const [ spellCheckers, setSpellCheckers ] = React.useState(defaultContext.spellCheckers);
     const [ items, setItems ] = React.useState<Item[]>(defaultContext.items);
     const [ activeItemIndex, setActiveItemIndex ] = React.useState(defaultContext.activeItemIndex);
 
@@ -73,12 +76,14 @@ export function Provider({ children, windowId }: { children: React.ReactChild ,w
         title,
         icon,
         nav: defaultContext.nav,
+        spellCheckers,
 
         addWindow: () => {
             addWindow({
                 id: 0,
                 icon: "icon.png",
-                title: "Queeg | New window"
+                title: "Queeg | New window",
+                spellCheckers: [ "en-US" ],
             });
         },
         removeWindow: () => {

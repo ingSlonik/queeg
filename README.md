@@ -18,6 +18,7 @@ Add your most used web pages to the desktop application customized just for you.
 - [x] Change icon of Queeg in the application.
 - [x] Multiple windows in one instance.
 - [x] Dark theme. (automatically set by system preference)
+- [x] Select spell checkers. (macOS by system, Windows and Linux in window settings separately)
 - [ ] Version checker.
 - [ ] Upload your own icon for web page in the application.
 - [ ] Set size of navigation.

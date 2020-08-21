@@ -1,5 +1,7 @@
 import { readdir } from "fs";
+import { platform } from "os";
 import { resolve } from "path";
+import { ipcRenderer } from "electron";
 
 import * as React from "react";
 
@@ -8,6 +10,11 @@ import TextField from '@material-ui/core/TextField';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import Button from '@material-ui/core/Button';
+
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 import IconButton from '@material-ui/core/IconButton';
 import SaveIcon from '@material-ui/icons/Save';
@@ -24,10 +31,10 @@ const iconPath = resolve(__filename, "..", "..", "..", "img", "icons");
 
 export default function WindowForm() {
 
-    const { title, icon, nav, setWindowProps, addWindow, removeWindow } = useContext();
+    const { title, icon, nav, spellCheckers, setWindowProps, addWindow, removeWindow } = useContext();
 
     const [icons, setIcons] = React.useState<string[] | null>(null);
-    const [editProps, setEditProps] = React.useState({ title, icon, nav });
+    const [editProps, setEditProps] = React.useState({ title, icon, nav, spellCheckers });
     const [showSnackbar, setShowSnackbar] = React.useState<null | string>(null);
 
     React.useEffect(() => {
@@ -38,6 +45,10 @@ export default function WindowForm() {
         });
     }, []);
 
+    const languages: string[] = React.useMemo(() => {
+        const languages = ipcRenderer.sendSync('get-languages', 'all');
+        return JSON.parse(languages);
+    }, []);
 
     return <form>
         <h1>Window settings</h1>
@@ -71,7 +82,28 @@ export default function WindowForm() {
             ))}
         </TextField>}
 
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        {/* MacOS use his own spell checker */}
+        {platform() !== "darwin" && <FormControl fullWidth>
+            <InputLabel id="mutiple-languages-label">Spell checkers</InputLabel>
+            <Select
+                labelId="mutiple-languages-label"
+                id="mutiple-languages-input"
+                fullWidth
+                multiple
+                value={editProps.spellCheckers}
+                onChange={e => setEditProps({ ...editProps, spellCheckers: (e.target.value as string[]) })}
+                input={<Input id="select-languages-input" />}
+                renderValue={(selected) => <div>{(selected as string[]).join(", ")}</div>}
+            >
+                {languages.map((name) => (
+                    <MenuItem key={name} value={name}>
+                        {name}
+                    </MenuItem>
+                ))}
+            </Select>
+        </FormControl>}
+
+        <div style={{ display: "flex", justifyContent: "space-between", marginTop: "16px" }}>
             <Button
                 variant="contained"
                 color="primary"

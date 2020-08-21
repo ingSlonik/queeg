@@ -11,8 +11,6 @@ import Nav from "./Nav";
 import Content from "./Content";
 import Switch from "./Switch";
 
-const iconPath = resolve(__filename, "..", "..", "..", "img", "icons");
-
 type AppProps = {
     windowId: number,
 };
